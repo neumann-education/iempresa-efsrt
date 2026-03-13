@@ -1,0 +1,1317 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      EFSRT — Emprendimiento e Iniciativas de Negocio Instituto Empresa
+    </title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link rel="icon" type="image/png" href="icono.png" />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700;800;900&amp;display=swap"
+      rel="stylesheet"
+    />
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              primary: '#fa630c',
+              'primary-dark': '#c84a09',
+              'primary-light': '#fb8a3c',
+              secondary: '#082755',
+              'background-light': '#f8fafc',
+              'background-dark': '#0f172a',
+              'text-main': '#1e293b',
+              'text-muted': '#64748b',
+            },
+            fontFamily: {
+              display: ['Lexend', 'sans-serif'],
+            },
+            borderRadius: {
+              DEFAULT: '1.5rem',
+              lg: '1.5rem',
+              xl: '1.5rem',
+              full: '9999px',
+            },
+          },
+        },
+      }
+    </script>
+    <style>
+      :root {
+        --primary: #fa630c !important;
+        --primary-darken-1: hsl(21.93, 96%, 49%);
+        --primary-darken-2: hsl(21.93, 96%, 46%);
+        --primary-darken-3: hsl(21.93, 96%, 41%);
+        --primary-lighten-1: hsl(21.93, 96%, 61%);
+        --primary-opacity-0: rgba(250, 99, 12, 0);
+        --primary-opacity-0_05: rgba(250, 99, 12, 0.05);
+        --primary-opacity-0_1: rgba(250, 99, 12, 0.1);
+        --primary-opacity-0_15: rgba(250, 99, 12, 0.15);
+        --primary-opacity-0_2: rgba(250, 99, 12, 0.2);
+        --primary-opacity-0_25: rgba(250, 99, 12, 0.25);
+        --primary-opacity-0_3: rgba(250, 99, 12, 0.3);
+        --primary-opacity-0_35: rgba(250, 99, 12, 0.35);
+        --primary-opacity-0_4: rgba(250, 99, 12, 0.4);
+        --primary-opacity-0_45: rgba(250, 99, 12, 0.45);
+        --primary-opacity-0_5: rgba(250, 99, 12, 0.5);
+        --primary-opacity-0_55: rgba(250, 99, 12, 0.55);
+        --primary-opacity-0_6: rgba(250, 99, 12, 0.6);
+        --primary-opacity-0_65: rgba(250, 99, 12, 0.65);
+        --primary-opacity-0_7: rgba(250, 99, 12, 0.7);
+        --primary-opacity-0_75: rgba(250, 99, 12, 0.75);
+        --primary-opacity-0_8: rgba(250, 99, 12, 0.8);
+        --primary-opacity-0_85: rgba(250, 99, 12, 0.85);
+        --primary-opacity-0_9: rgba(250, 99, 12, 0.9);
+        --primary-opacity-0_95: rgba(250, 99, 12, 0.95);
+        --secondary: #082755 !important;
+        --theme-color-main: hsl(21.93, 20%, 20%);
+        --theme-color-secondary: hsl(21.93, 20%, 80%);
+        --theme-color-title: hsl(21.93, 20%, 20%);
+        --theme-color-strict-inverse: #ffffff;
+      }
+      body {
+        font-family: 'Lexend', sans-serif;
+      }
+      /* Mobile/Custom Styles */
+      .animate-fade-in {
+        animation: fadeIn 0.4s ease-in-out;
+      }
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(5px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .required-star {
+        color: #dc2626;
+      }
+      .step-bullet {
+        width: 2rem;
+        height: 2rem;
+        border-radius: 9999px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .note {
+        background: #fff7ed;
+        border-left: 4px solid #f59e0b;
+        padding: 0.75rem 1rem;
+        border-radius: 0.5rem;
+      }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  </head>
+  <body class="bg-background-light text-[#0d121b] antialiased">
+    <main class="max-w-4xl mx-auto p-6 md:p-12">
+      <!-- Loader (initially hidden) -->
+      <div
+        id="loader"
+        class="fixed inset-0 flex items-center justify-center bg-white/80 z-50 hidden"
+      >
+        <svg
+          class="w-16 h-16 text-secondary animate-spin"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+        >
+          <circle
+            class="opacity-25"
+            cx="12"
+            cy="12"
+            r="10"
+            stroke="currentColor"
+            stroke-width="4"
+          ></circle>
+          <path
+            class="opacity-75"
+            fill="currentColor"
+            d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
+          ></path>
+        </svg>
+      </div>
+
+      <!-- Maintenance Message -->
+      <div
+        id="maintenance-message"
+        class="hidden flex flex-col items-center justify-center min-h-[60vh] text-center space-y-6"
+      >
+        <div
+          class="w-24 h-24 bg-orange-100 rounded-full flex items-center justify-center mb-4"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-12 w-12 text-orange-500"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
+            />
+          </svg>
+        </div>
+        <h2 class="text-3xl font-bold text-gray-800">Temporalmente Cerrado</h2>
+        <p class="text-gray-600 max-w-lg">
+          El formulario de registro se encuentra temporalmente inhabilitado por
+          motivos de mantenimiento. Por favor, vuelve a intentar más tarde o
+          comunícate con la administración.
+        </p>
+      </div>
+
+      <div id="app-content">
+        <header class="mb-8 flex items-center justify-between">
+          <div>
+            <h1 class="text-2xl font-extrabold text-primary">
+              EFSRT — Emprendimiento e Iniciativas de Negocio Instituto Empresa
+            </h1>
+            <p class="text-sm text-text-muted mt-1">
+              Formulario de registro — Experiencia Formativa en Situaciones
+              Reales de Trabajo
+            </p>
+          </div>
+          <img
+            src="LOGO-UCE.png"
+            alt="Instituto Empresa"
+            class="h-12 object-contain"
+          />
+        </header>
+
+        <!-- Stepper -->
+        <div class="mb-8">
+          <!-- Desktop/Tablet Stepper -->
+          <div
+            class="hidden md:flex items-center justify-between relative px-4 py-4"
+          >
+            <!-- Connecting Line Background -->
+            <div
+              class="absolute left-0 top-1/2 transform -translate-y-1/2 w-full h-1 bg-gray-100 -z-10 rounded-full"
+            ></div>
+
+            <!-- Active Line Progress -->
+            <div
+              id="stepper-progress"
+              class="absolute left-0 top-1/2 transform -translate-y-1/2 h-1 bg-secondary -z-10 rounded-full transition-all duration-500 ease-in-out"
+              style="width: 0%"
+            ></div>
+
+            <!-- Step 1 -->
+            <button
+              type="button"
+              onclick="goToStep(0)"
+              class="step-btn group flex flex-col items-center gap-2 bg-transparent border-0 cursor-pointer focus:outline-none relative z-10"
+              disabled
+            >
+              <div
+                id="bullet-1"
+                class="w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold border-2 transition-all duration-300 bg-white border-primary text-primary shadow-[0_0_0_4px_rgba(255,255,255,1)]"
+              >
+                1
+              </div>
+              <div class="absolute top-12 w-32 text-center">
+                <span class="block text-xs font-bold text-gray-900"
+                  >Estudiante</span
+                >
+                <span class="block text-[10px] text-gray-500 font-medium"
+                  >Datos personales</span
+                >
+              </div>
+            </button>
+
+            <!-- Step 2 -->
+            <button
+              type="button"
+              onclick="goToStep(1)"
+              class="step-btn group flex flex-col items-center gap-2 bg-transparent border-0 cursor-pointer focus:outline-none relative z-10"
+              disabled
+            >
+              <div
+                id="bullet-2"
+                class="w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold border-2 transition-all duration-300 bg-white border-gray-200 text-gray-400 shadow-[0_0_0_4px_rgba(255,255,255,1)]"
+              >
+                2
+              </div>
+              <div class="absolute top-12 w-32 text-center">
+                <span class="block text-xs font-bold text-gray-900 opacity-60"
+                  >EFSRT</span
+                >
+                <span
+                  class="block text-[10px] text-gray-500 font-medium opacity-60"
+                  >Información</span
+                >
+              </div>
+            </button>
+
+            <!-- Step 3 -->
+            <button
+              type="button"
+              onclick="goToStep(2)"
+              class="step-btn group flex flex-col items-center gap-2 bg-transparent border-0 cursor-pointer focus:outline-none relative z-10"
+              disabled
+            >
+              <div
+                id="bullet-3"
+                class="w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold border-2 transition-all duration-300 bg-white border-gray-200 text-gray-400 shadow-[0_0_0_4px_rgba(255,255,255,1)]"
+              >
+                3
+              </div>
+              <div class="absolute top-12 w-32 text-center">
+                <span class="block text-xs font-bold text-gray-900 opacity-60"
+                  >Adjuntos</span
+                >
+                <span
+                  class="block text-[10px] text-gray-500 font-medium opacity-60"
+                  >Proyecto / Evidencia</span
+                >
+              </div>
+            </button>
+          </div>
+
+          <!-- Mobile Stepper -->
+          <div
+            class="md:hidden flex items-center justify-between bg-white p-4 rounded-xl border border-gray-100 shadow-sm"
+          >
+            <div class="flex items-center gap-3">
+              <div class="relative">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-6 w-6 text-primary"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M5 13l4 4L19 7"
+                  />
+                </svg>
+                <div
+                  id="mobile-step-number"
+                  class="absolute left-0 top-0 text-xs font-bold"
+                >
+                  1
+                </div>
+              </div>
+              <div>
+                <div
+                  id="mobile-step-title"
+                  class="text-sm font-bold text-gray-900"
+                >
+                  Estudiante
+                </div>
+                <div id="mobile-step-subtitle" class="text-xs text-gray-500">
+                  Datos personales
+                </div>
+              </div>
+            </div>
+            <button
+              class="text-xs font-medium text-primary hover:text-primary-dark"
+            >
+              Ver todo
+            </button>
+          </div>
+        </div>
+
+        <form
+          id="efsrt-form"
+          class="bg-white p-6 rounded-2xl border border-[#e6eef8] shadow-sm"
+          novalidate
+        >
+          <!-- SECTION 1 - Estudiante -->
+          <fieldset data-step="1" class="space-y-4">
+            <legend class="text-lg font-bold text-[#0d121b]">
+              Información del Estudiante
+            </legend>
+            <p class="text-sm text-text-muted">
+              Por favor ingresa tus datos personales y académicos.
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label class="text-sm font-semibold"
+                  >Nombres <span class="required-star">*</span></label
+                >
+                <input
+                  name="nombres"
+                  type="text"
+                  required
+                  placeholder="Ej: Juan Román"
+                  class="mt-2 w-full pl-4 pr-3 py-3 rounded-lg border border-gray-200 focus:border-primary focus:ring-2 focus:ring-primary/20 bg-background-light/50 text-sm outline-none"
+                />
+              </div>
+
+              <div>
+                <label class="text-sm font-semibold"
+                  >Apellidos <span class="required-star">*</span></label
+                >
+                <input
+                  name="apellidos"
+                  type="text"
+                  required
+                  placeholder="Ej: Riquelme"
+                  class="mt-2 w-full pl-4 pr-3 py-3 rounded-lg border border-gray-200 focus:border-primary focus:ring-2 focus:ring-primary/20 bg-background-light/50 text-sm outline-none"
+                />
+              </div>
+
+              <div>
+                <label class="text-sm font-semibold"
+                  >DNI <span class="required-star">*</span></label
+                >
+                <input
+                  name="dni"
+                  type="text"
+                  required
+                  placeholder="70000000"
+                  class="mt-2 w-full pl-4 pr-3 py-3 rounded-lg border border-gray-200 focus:border-primary focus:ring-2 focus:ring-primary/20 bg-background-light/50 text-sm outline-none"
+                />
+              </div>
+
+              <div>
+                <label class="text-sm font-semibold"
+                  >Correo Estudiantil
+                  <span class="required-star">*</span></label
+                >
+                <input
+                  name="correo_estudiantil"
+                  type="email"
+                  required
+                  placeholder="usuario@iempresa.edu.pe"
+                  class="mt-2 w-full pl-4 pr-3 py-3 rounded-lg border border-gray-200 focus:border-primary focus:ring-2 focus:ring-primary/20 bg-background-light/50 text-sm outline-none"
+                />
+              </div>
+
+              <div>
+                <label class="text-sm font-semibold"
+                  >Programa de Estudios
+                  <span class="required-star">*</span></label
+                >
+                <select
+                  name="programa"
+                  required
+                  class="mt-2 w-full pl-4 pr-3 py-3 rounded-lg border border-gray-200 bg-white text-sm focus:border-primary focus:ring-2 focus:ring-primary/20"
+                >
+                  <option value="">Seleccione...</option>
+                  <option>Administración</option>
+                  <option>Contabilidad</option>
+                  <option>Marketing</option>
+                  <option>Sistemas</option>
+                </select>
+              </div>
+
+              <div>
+                <label class="text-sm font-semibold"
+                  >Ciclo de Estudios <span class="required-star">*</span></label
+                >
+                <select
+                  name="ciclo"
+                  required
+                  class="mt-2 w-full pl-4 pr-3 py-3 rounded-lg border border-gray-200 bg-white text-sm focus:border-primary focus:ring-2 focus:ring-primary/20"
+                >
+                  <option value="">Seleccione ciclo...</option>
+                  <option>Primer Ciclo</option>
+                  <option>Segunda Ciclo</option>
+                  <option>Tercer Ciclo</option>
+                  <option>Cuarto Ciclo</option>
+                  <option>Quinto Ciclo</option>
+                  <option>Sexto Ciclo</option>
+                </select>
+              </div>
+            </div>
+          </fieldset>
+
+          <!-- SECTION 2 - EFSRT info -->
+          <fieldset data-step="2" class="hidden space-y-4">
+            <legend class="text-lg font-bold">Sección 2 — Tipo de EFSRT</legend>
+            <p class="text-sm text-text-muted">
+              Indica el tipo de EFSRT que vas a realizar. Según tu elección se
+              mostrarán campos adicionales.
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label class="text-sm font-semibold"
+                  >Tipo de EFSRT <span class="required-star">*</span></label
+                >
+                <select
+                  name="tipo"
+                  id="tipo-select"
+                  required
+                  class="mt-2 w-full pl-4 pr-3 py-3 rounded-lg border border-gray-200 bg-white text-sm focus:border-primary focus:ring-2 focus:ring-primary/20"
+                >
+                  <option value="">Seleccione...</option>
+                  <option value="Iniciativa de negocio">
+                    Iniciativa de negocio
+                  </option>
+                  <option value="Negocio Propio">Negocio Propio</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- iniciativa fields -->
+            <div id="iniciativa-fields" class="hidden mt-4 space-y-4">
+              <p class="text-sm text-text-muted">
+                El estudiante debe elaborar un Plan de Negocio siguiendo la
+                siguiente estructura:
+              </p>
+              <ul class="list-disc ml-4 text-sm text-text-muted space-y-1">
+                <li>
+                  <b>Descripción de la empresa</b>: Información sobre la
+                  empresa, misión, visión, y estructura legal.
+                </li>
+                <li>
+                  <b>Análisis de mercado</b>: Investigación sobre la industria,
+                  clientes potenciales, competencia y tendencias del mercado.
+                </li>
+                <li>
+                  <b>Organización y gestión</b>: Detalle del equipo directivo y
+                  estructura organizativa.
+                </li>
+                <li>
+                  <b>Productos o servicios</b>: Descripción de los productos o
+                  servicios que ofrece la empresa, sus ventajas competitivas y
+                  ciclo de vida.
+                </li>
+                <li>
+                  <b>Plan de marketing y ventas</b>: Estrategias para atraer
+                  clientes, precios, canales de distribución y campañas
+                  publicitarias.
+                </li>
+                <li>
+                  <b>Plan operativo</b>: Proceso de producción, logística,
+                  instalaciones y tecnología necesaria.
+                </li>
+                <li>
+                  <b>Plan financiero</b>: Proyecciones de ingresos, gastos,
+                  flujo de caja, estado de resultados y punto de equilibrio.
+                </li>
+                <li>
+                  <b>Análisis de riesgos</b>: Identificación de riesgos
+                  potenciales y estrategias de mitigación.
+                </li>
+              </ul>
+            </div>
+
+            <!-- propio fields -->
+            <div id="propio-fields" class="hidden mt-4 space-y-4">
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label class="text-sm font-semibold"
+                    >Nombre de la Empresa
+                    <span class="required-star">*</span></label
+                  >
+                  <input
+                    name="nombre_empresa"
+                    type="text"
+                    class="mt-2 w-full pl-4 pr-3 py-3 rounded-lg border border-gray-200 bg-background-light/50 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
+                  />
+                </div>
+                <div>
+                  <label class="text-sm font-semibold"
+                    >Marca o Nombre Comercial
+                    <span class="required-star">*</span></label
+                  >
+                  <input
+                    name="marca"
+                    type="text"
+                    class="mt-2 w-full pl-4 pr-3 py-3 rounded-lg border border-gray-200 bg-background-light/50 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
+                  />
+                </div>
+                <div>
+                  <label class="text-sm font-semibold"
+                    >Misión de la Empresa
+                    <span class="required-star">*</span></label
+                  >
+                  <textarea
+                    name="mision"
+                    rows="3"
+                    class="mt-2 w-full pl-4 pr-3 py-3 rounded-lg border border-gray-200 bg-background-light/50 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
+                  ></textarea>
+                </div>
+                <div>
+                  <label class="text-sm font-semibold"
+                    >Visión de la Empresa
+                    <span class="required-star">*</span></label
+                  >
+                  <textarea
+                    name="vision"
+                    rows="3"
+                    class="mt-2 w-full pl-4 pr-3 py-3 rounded-lg border border-gray-200 bg-background-light/50 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
+                  ></textarea>
+                </div>
+                <div class="md:col-span-2">
+                  <label class="text-sm font-semibold"
+                    >Estructura Legal de la Empresa
+                    <span class="required-star">*</span></label
+                  >
+                  <textarea
+                    name="estructura_legal"
+                    rows="3"
+                    class="mt-2 w-full pl-4 pr-3 py-3 rounded-lg border border-gray-200 bg-background-light/50 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
+                  ></textarea>
+                </div>
+              </div>
+            </div>
+          </fieldset>
+          <!-- SECTION 3 - Adjuntos -->
+          <fieldset data-step="3" class="hidden space-y-4">
+            <legend class="text-lg font-bold">
+              Sección 3 — Adjuntar archivo
+            </legend>
+            <p class="text-sm text-text-muted">
+              Cuando tengas toda la información puedes completar el siguiente
+              formulario, si no la tienes, te recomendamos no proseguir con el
+              llenado.
+            </p>
+
+            <!-- unified container for the file input -->
+            <div id="adjunto-container" class="hidden">
+              <label id="adjunto-label" class="text-sm font-semibold">
+                Adjuntar <span id="adjunto-what"></span>
+                <span class="required-star">*</span>
+              </label>
+              <div
+                id="drop-zone"
+                class="border-2 border-dashed border-gray-300 rounded-xl p-8 text-center hover:bg-gray-50 transition-colors cursor-pointer relative"
+              >
+                <input
+                  id="adjunto-input"
+                  name="adjunto"
+                  type="file"
+                  required
+                  class="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                />
+                <div class="pointer-events-none">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="h-10 w-10 text-gray-400 mx-auto mb-3"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M5 13l4 4L19 7"
+                    />
+                  </svg>
+                  <p class="text-sm text-gray-600 font-medium">
+                    <span class="text-primary hover:underline"
+                      >Haz clic para subir</span
+                    >
+                    o arrastra y suelta
+                  </p>
+                  <p id="file-name-display" class="text-xs text-gray-500 mt-1">
+                    PDF hasta 10MB (debe incluir el nombre del estudiante)
+                  </p>
+                </div>
+              </div>
+              <p id="adjunto-help" class="text-xs text-gray-500 mt-1"></p>
+            </div>
+          </fieldset>
+
+          <!-- Navigation (same as original) -->
+          <div
+            class="mt-6 pt-6 border-t border-gray-100 flex items-center justify-between gap-4"
+          >
+            <div>
+              <button
+                type="button"
+                id="prev-btn"
+                class="hidden px-4 py-2 rounded-lg border border-gray-300 text-sm text-gray-600 hover:bg-gray-50"
+              >
+                Anterior
+              </button>
+            </div>
+            <div class="flex items-center gap-3">
+              <button
+                type="button"
+                id="save-draft"
+                class="px-4 py-2 rounded-lg border border-gray-200 text-sm text-text-muted hover:bg-gray-50"
+              >
+                Guardar borrador
+              </button>
+              <button
+                type="button"
+                id="next-btn"
+                class="px-6 py-2 rounded-full bg-secondary text-white text-sm font-bold shadow"
+              >
+                Siguiente
+              </button>
+              <button
+                type="submit"
+                id="submit-btn"
+                class="px-6 py-2 rounded-full bg-secondary text-white text-sm font-bold shadow hidden"
+              >
+                Enviar formulario
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+      <!-- Cierre de #app-content -->
+
+      <script>
+        const API_HABILITADOS_URL =
+          'https://script.google.com/macros/s/AKfycbw0XJcMKV6mXnnK827GoUTGNB5cYaKKG-rnbtT-3kRIfjArlVFfrmAnHUpE7wFPHZwTiQ/exec?action=formulariosPermisosEFSRT'
+        const PAGE_NAME = 'Emprendimiento e Iniciativas de Negocio'
+
+        let MAINTENANCE_MODE = false
+
+        function applyMaintenanceMode() {
+          if (MAINTENANCE_MODE) {
+            const content = document.getElementById('app-content')
+            const msg = document.getElementById('maintenance-message')
+            if (content) content.classList.add('hidden')
+            if (msg) msg.classList.remove('hidden')
+          }
+        }
+
+        function showLoader() {
+          const l = document.getElementById('loader')
+          if (l) l.classList.remove('hidden')
+        }
+
+        function hideLoader() {
+          const l = document.getElementById('loader')
+          if (l) l.classList.add('hidden')
+        }
+
+        async function checkMaintenance() {
+          showLoader()
+          try {
+            const resp = await fetch(API_HABILITADOS_URL)
+            const json = await resp.json()
+            if (Array.isArray(json)) {
+              const normalized = (s) =>
+                (s || '').toString().trim().toLowerCase()
+              const item = json.find(
+                (o) =>
+                  o['LISTADO EFSRT'] &&
+                  normalized(o['LISTADO EFSRT']).includes(
+                    normalized(PAGE_NAME),
+                  ),
+              )
+              if (item && parseInt(item['Habilitado'], 10) !== 1) {
+                MAINTENANCE_MODE = true
+              }
+            }
+          } catch (err) {
+            console.error('Error fetching maintenance config', err)
+          } finally {
+            applyMaintenanceMode()
+            hideLoader()
+          }
+        }
+
+        document.addEventListener('DOMContentLoaded', checkMaintenance)
+
+        const steps = Array.from(document.querySelectorAll('[data-step]'))
+        const total = steps.length
+        let current = 0
+
+        // TEMPORAL: desactivar validación de correo para pruebas. Recordar:
+        // ajustar a `false` o eliminar antes de pasar a producción.
+        const SKIP_EMAIL_VALIDATION = false
+
+        const stepTitles = [
+          { title: 'Estudiante', subtitle: 'Datos personales' },
+          { title: 'EFSRT', subtitle: 'Información' },
+          { title: 'Adjuntos', subtitle: 'Proyecto / Evidencia' },
+        ]
+
+        window.goToStep = (index) => {
+          if (index < current) {
+            current = index
+            updateUI()
+          } else if (index > current) {
+            const invalid = validateStep(current)
+            if (!invalid) {
+              // prevent jumping more than one step at once to keep flow
+            }
+          }
+        }
+
+        function updateUI() {
+          // update desktop stepper
+          const stepButtons = document.querySelectorAll('.step-btn')
+          steps.forEach((fs, i) => {
+            // Toggle visibility of the fieldset
+            if (i === current) {
+              fs.classList.remove('hidden')
+              fs.classList.add('animate-fade-in')
+            } else {
+              fs.classList.add('hidden')
+              fs.classList.remove('animate-fade-in')
+            }
+
+            const btn = stepButtons[i]
+            if (!btn) return // safety check
+            const bullet = document.getElementById(`bullet-${i + 1}`)
+            // The button structure has a div with text inside absolute positioning
+            // We need to target the spans inside the text container div
+            const textContainer = btn.querySelector('div.absolute')
+            let title, subtitle
+            if (textContainer) {
+              title = textContainer.querySelector('span:first-child')
+              subtitle = textContainer.querySelector('span:last-child')
+            }
+
+            if (i < current) {
+              bullet.classList.add(
+                'bg-primary',
+                'border-primary',
+                'text-white',
+                'scale-110',
+              )
+              bullet.classList.remove(
+                'bg-white',
+                'border-gray-200',
+                'text-gray-400',
+                'shadow',
+              )
+              bullet.innerHTML =
+                '<svg class=\"w-5 h-5\" fill=\"none\" stroke=\"currentColor\" viewBox=\"0 0 24 24\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"3\" d=\"M5 13l4 4L19 7\"></path></svg>'
+              if (title) {
+                title.classList.remove('opacity-60', 'text-primary')
+                title.classList.add('text-gray-900')
+              }
+              if (subtitle) {
+                subtitle.classList.remove('opacity-60')
+              }
+              btn.disabled = false
+              btn.onclick = ((idx) => () => {
+                current = idx
+                updateUI()
+              })(i)
+            } else if (i === current) {
+              bullet.classList.add(
+                'bg-secondary',
+                'border-secondary',
+                'text-white',
+                'scale-110',
+              )
+              bullet.classList.remove(
+                'bg-white',
+                'border-gray-200',
+                'text-gray-400',
+              )
+              bullet.innerHTML = i + 1
+              if (title) {
+                title.classList.remove('opacity-60')
+                title.classList.add('text-primary')
+              }
+              if (subtitle) {
+                subtitle.classList.remove('opacity-60')
+              }
+              btn.disabled = true
+              btn.onclick = null
+            } else {
+              bullet.classList.add(
+                'bg-white',
+                'border-gray-200',
+                'text-gray-400',
+              )
+              bullet.classList.remove(
+                'bg-primary',
+                'border-primary',
+                'text-white',
+                'scale-110',
+              )
+              bullet.innerHTML = i + 1
+              if (title) {
+                title.classList.add('opacity-60')
+                title.classList.remove('text-primary')
+              }
+              if (subtitle) {
+                subtitle.classList.add('opacity-60')
+              }
+              btn.disabled = true
+              btn.onclick = null
+            }
+          })
+
+          // mobile stepper update
+          if (stepTitles[current]) {
+            const mTitle = document.getElementById('mobile-step-title')
+            const mSubtitle = document.getElementById('mobile-step-subtitle')
+            if (mTitle) mTitle.textContent = stepTitles[current].title
+            if (mSubtitle) mSubtitle.textContent = stepTitles[current].subtitle
+          }
+          // The HTML for mobile has id="mobile-step-number", which seems to track current step
+          const mCurrent = document.getElementById('mobile-step-number')
+          if (mCurrent) mCurrent.textContent = current + 1
+
+          // These IDs (mobile-step-current, mobile-step-total) do not exist in the HTML provided
+          // so we safeguard them or remove them to prevent errors.
+          const mStepCurrent = document.getElementById('mobile-step-current')
+          const mStepTotal = document.getElementById('mobile-step-total')
+          if (mStepCurrent) mStepCurrent.textContent = current + 1
+          if (mStepTotal) mStepTotal.textContent = total
+
+          document
+            .getElementById('prev-btn')
+            .classList.toggle('hidden', current === 0)
+          document
+            .getElementById('next-btn')
+            .classList.toggle('hidden', current === total - 1)
+          document
+            .getElementById('submit-btn')
+            .classList.toggle('hidden', current !== total - 1)
+          window.scrollTo({ top: 0, behavior: 'smooth' })
+        }
+
+        function validateStep(index) {
+          const fs = steps[index]
+          // Although querySelectorAll runs scoped to the fieldset, we'll
+          // double-check after the fact to prevent surprises if the DOM
+          // becomes malformed or steps gets out of sync.
+          const required = Array.from(fs.querySelectorAll('[required]')).filter(
+            (el) => fs.contains(el),
+          )
+          for (const el of required) {
+            if (el.type === 'file') {
+              if (!el.files || el.files.length === 0) return el
+              if (el.files[0].size > 10 * 1024 * 1024) {
+                Swal.fire({
+                  icon: 'warning',
+                  title: 'Archivo muy pesado',
+                  text: 'El archivo adjunto no debe superar los 10MB.',
+                })
+                return el
+              }
+            } else if (!el.value || el.value.toString().trim() === '') return el
+          }
+
+          if (index === 1) {
+            const tipo = document.querySelector('[name="tipo"]').value
+            if (!tipo) return document.querySelector('[name="tipo"]')
+            if (tipo === 'Iniciativa de negocio') {
+              // No additional fields to validate for initiative
+            } else if (tipo === 'Negocio Propio') {
+              const names = [
+                'nombre_empresa',
+                'marca',
+                'mision',
+                'vision',
+                'estructura_legal',
+              ]
+              for (const n of names) {
+                const el = document.querySelector(`[name="${n}"]`)
+                if (el && !el.value.trim()) return el
+              }
+            }
+          }
+
+          if (index === 2) {
+            const fileInput = document.getElementById('adjunto-input')
+            if (
+              !fileInput ||
+              !fileInput.files ||
+              fileInput.files.length === 0
+            ) {
+              Swal.fire({
+                icon: 'warning',
+                title: 'Archivo faltante',
+                text: 'Debes adjuntar el archivo requerido.',
+              })
+              return fileInput || document.querySelector('#adjunto-input')
+            }
+          }
+
+          if (index === 0 && !SKIP_EMAIL_VALIDATION) {
+            const emailInput = fs.querySelector(
+              'input[name="correo_estudiantil"]',
+            )
+            if (emailInput && emailInput.value) {
+              const email = emailInput.value.trim().toLowerCase()
+              if (!email.endsWith('@iempresa.edu.pe')) {
+                Swal.fire({
+                  icon: 'warning',
+                  title: 'Correo inválido',
+                  text: 'El correo estudiantil debe ser del dominio @uce.edu',
+                })
+                return emailInput
+              }
+            }
+          }
+          return null
+        }
+
+        /* Draft helpers unchanged (same functions as original) */
+        const DRAFT_KEY = 'efsrt_draft_v1'
+        function getFormObjectForDraft() {
+          const form = document.getElementById('efsrt-form')
+          const fd = new FormData(form)
+          const obj = {}
+          for (const [k, v] of fd.entries()) {
+            if (k === 'adjunto') continue
+            obj[k] = v
+          }
+          obj.__savedAt = new Date().toISOString()
+          return obj
+        }
+        function saveDraftToLocalStorage() {
+          try {
+            const data = getFormObjectForDraft()
+            localStorage.setItem(DRAFT_KEY, JSON.stringify(data))
+            return true
+          } catch (e) {
+            console.error(e)
+            return false
+          }
+        }
+        function loadDraftFromLocalStorage() {
+          const raw = localStorage.getItem(DRAFT_KEY)
+          if (!raw) return null
+          try {
+            return JSON.parse(raw)
+          } catch (e) {
+            return null
+          }
+        }
+        function populateFormFromDraft(draft) {
+          if (!draft) return
+          for (const key of Object.keys(draft)) {
+            if (key.startsWith('__')) continue
+            const el = document.querySelector('[name="' + key + '"]')
+            if (!el) continue
+            if (el.tagName === 'SELECT') {
+              el.value = draft[key]
+            } else if (el.type === 'checkbox' || el.type === 'radio') {
+              el.checked = !!draft[key]
+            } else {
+              el.value = draft[key]
+            }
+          }
+        }
+        function clearDraft() {
+          localStorage.removeItem(DRAFT_KEY)
+        }
+        function loadDraftOnStart() {
+          const draft = loadDraftFromLocalStorage()
+          if (!draft) return
+          Swal.fire({
+            title: 'Borrador encontrado',
+            html:
+              'Se encontró un borrador guardado localmente.<br/><small>Guardado el: ' +
+              new Date(draft.__savedAt).toLocaleString() +
+              '</small>',
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonText: 'Cargar borrador',
+            cancelButtonText: 'Eliminar borrador',
+          }).then((res) => {
+            if (res.isConfirmed) {
+              populateFormFromDraft(draft)
+              Swal.fire({ icon: 'success', title: 'Borrador cargado' })
+            } else if (res.dismiss === Swal.DismissReason.cancel) {
+              clearDraft()
+              Swal.fire({ icon: 'info', title: 'Borrador eliminado' })
+            }
+          })
+        }
+
+        let isNavigating = false
+        document.getElementById('next-btn').addEventListener('click', () => {
+          if (isNavigating) return
+          isNavigating = true
+          const invalid = validateStep(current)
+          if (invalid) {
+            invalid.focus()
+            let message = 'Completa los campos obligatorios antes de continuar.'
+            if (invalid.name) {
+              let lbl = invalid.closest('label')
+              if (!lbl) {
+                const parent = invalid.parentElement
+                if (parent) {
+                  lbl = parent.querySelector('label')
+                }
+              }
+              if (lbl) message = `Por favor completa: ${lbl.textContent.trim()}`
+            }
+            Swal.fire({
+              icon: 'warning',
+              title: 'Falta información',
+              text: message,
+            })
+            isNavigating = false
+            return
+          }
+          if (current < total - 1) {
+            current++
+            updateUI()
+          }
+          // allow a small delay so the UI updates before another click is
+          // processed (clicks during scroll/animation will now be ignored)
+          setTimeout(() => {
+            isNavigating = false
+          }, 100)
+        })
+        document.getElementById('prev-btn').addEventListener('click', () => {
+          if (current > 0) {
+            current--
+            updateUI()
+          }
+        })
+
+        // form submission adapted
+        document
+          .getElementById('efsrt-form')
+          .addEventListener('submit', (e) => {
+            e.preventDefault()
+            for (let i = 0; i < total; i++) {
+              const inv = validateStep(i)
+              if (inv) {
+                current = i
+                updateUI()
+                inv.focus()
+                Swal.fire({
+                  icon: 'warning',
+                  title: 'Campos incompletos',
+                  text: 'Revisa las secciones marcadas y completa los campos obligatorios.',
+                })
+                return
+              }
+            }
+            const nombre =
+              document.querySelector('[name="nombres"]').value || '-'
+            const apellidos =
+              document.querySelector('[name="apellidos"]').value || '-'
+            const programa =
+              document.querySelector('[name="programa"]').value || '-'
+            Swal.fire({
+              title: '¿Confirmar envío?',
+              html: `<strong>${nombre} ${apellidos}</strong><br/>Programa: ${programa}`,
+              icon: 'question',
+              showCancelButton: true,
+              confirmButtonText: 'Sí, enviar',
+            }).then((result) => {
+              if (result.isConfirmed) {
+                const submitBtn = document.getElementById('submit-btn')
+                const originalText = submitBtn.textContent
+                submitBtn.disabled = true
+                submitBtn.textContent = 'Enviando...'
+                const form = document.getElementById('efsrt-form')
+                const formData = new FormData(form)
+                const data = {}
+                for (const [key, value] of formData.entries()) {
+                  if (key !== 'adjunto') {
+                    data[key] = value
+                  }
+                }
+                const sendData = (payload) => {
+                  const SCRIPT_URL =
+                    'https://script.google.com/macros/s/AKfycby2EYc8tvdxr_yrtpFGxRHqiySb5y5pZ8ogKAyskWDql1dzFvdyCRMb8cvdwq7fJlMo/exec'
+                  fetch(SCRIPT_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                    body: JSON.stringify(payload),
+                  })
+                    .then((r) => r.json())
+                    .then((resp) => {
+                      submitBtn.disabled = false
+                      submitBtn.textContent = originalText
+                      if (resp.success) {
+                        Swal.fire({
+                          icon: 'success',
+                          title: '¡Éxito!',
+                          text: 'Tu formulario ha sido enviado y registrado correctamente.',
+                        })
+                        form.reset()
+                        clearDraft()
+                        current = 0
+                        updateUI()
+                      } else {
+                        Swal.fire({
+                          icon: 'error',
+                          title: 'Error',
+                          text: resp.message || 'Error desconocido al guardar.',
+                        })
+                      }
+                    })
+                    .catch((err) => {
+                      submitBtn.disabled = false
+                      submitBtn.textContent = originalText
+                      console.error(err)
+                      Swal.fire({
+                        icon: 'error',
+                        title: 'Error de conexión',
+                        text: 'Hubo un problema al conectar con el servidor. Intenta de nuevo.',
+                      })
+                    })
+                }
+                const fileInput = form.querySelector('input[name="adjunto"]')
+                if (fileInput && fileInput.files.length > 0) {
+                  const file = fileInput.files[0]
+                  const reader = new FileReader()
+                  reader.onload = function (evt) {
+                    const base64 = evt.target.result.split(',')[1]
+                    data.adjunto = {
+                      name: file.name,
+                      mimeType: file.type,
+                      data: base64,
+                    }
+                    sendData(data)
+                  }
+                  reader.onerror = function (err) {
+                    console.error('Error leyendo archivo', err)
+                    submitBtn.disabled = false
+                    submitBtn.textContent = originalText
+                    Swal.fire({
+                      icon: 'error',
+                      title: 'Error de archivo',
+                      text: 'No se pudo leer el archivo adjunto.',
+                    })
+                  }
+                  reader.readAsDataURL(file)
+                } else {
+                  sendData(data)
+                }
+              }
+            })
+          })
+
+        document.getElementById('save-draft').addEventListener('click', () => {
+          const ok = saveDraftToLocalStorage()
+          if (ok) {
+            Swal.fire({
+              icon: 'success',
+              title: 'Borrador guardado',
+              html: 'Los datos se han guardado localmente.<br/><small>Nota: el archivo no se guarda en el borrador.</small>',
+              timer: 2000,
+              showConfirmButton: false,
+            })
+          } else {
+            Swal.fire({
+              icon: 'error',
+              title: 'Error',
+              text: 'No se pudo guardar el borrador en el almacenamiento local.',
+            })
+          }
+        })
+
+        // attach conditional display listener
+        const tipoEl = document.getElementById('tipo-select')
+        const adjuntoContainer = document.getElementById('adjunto-container')
+        const adjuntoWhat = document.getElementById('adjunto-what')
+        const adjuntoHelp = document.getElementById('adjunto-help')
+        const adjuntoInput = document.getElementById('adjunto-input')
+        if (tipoEl) {
+          tipoEl.addEventListener('change', (e) => {
+            const v = e.target.value
+            document
+              .getElementById('iniciativa-fields')
+              .classList.toggle('hidden', v !== 'Iniciativa de negocio')
+            document
+              .getElementById('propio-fields')
+              .classList.toggle('hidden', v !== 'Negocio Propio')
+
+            // file section
+            adjuntoContainer.classList.toggle('hidden', !v)
+            // toggle required on extra fields
+            const ownNames = [
+              'nombre_empresa',
+              'marca',
+              'mision',
+              'vision',
+              'estructura_legal',
+            ]
+            if (v === 'Iniciativa de negocio') {
+              ownNames.forEach((n) => {
+                const e = document.querySelector('[name="' + n + '"]')
+                if (e) e.required = false
+              })
+
+              adjuntoWhat.textContent = 'Proyecto de negocio'
+              adjuntoInput.accept = 'application/pdf'
+              adjuntoHelp.textContent =
+                'Sube 1 archivo compatible: PDF. Tamaño máximo: 10 MB.'
+              if (fileNameDisplay)
+                fileNameDisplay.textContent = 'PDF (Plan de Negocio) hasta 10MB'
+            } else if (v === 'Negocio Propio') {
+              // for own biz, description is not used anyway
+              ownNames.forEach((n) => {
+                const e = document.querySelector('[name="' + n + '"]')
+                if (e) e.required = true
+              })
+
+              adjuntoWhat.textContent = 'Constancia / ficha RUC en PDF'
+              adjuntoInput.accept = 'application/pdf'
+              adjuntoHelp.textContent =
+                'Se deberá adjuntar un PDF que contenga la ficha RUC o una constancia notariada. Tamaño máximo: 10 MB.'
+              if (fileNameDisplay)
+                fileNameDisplay.textContent =
+                  'PDF con Nombre del estudiante hasta 10MB'
+            }
+          })
+        }
+
+        // Custom drag & drop file handling (no FilePond)
+        const dropZone = document.getElementById('drop-zone')
+        const fileInput = document.getElementById('adjunto-input')
+        const fileNameDisplay = document.getElementById('file-name-display')
+
+        if (dropZone && fileInput) {
+          // highlight when dragging
+          dropZone.addEventListener('dragover', (e) => {
+            e.preventDefault()
+            dropZone.classList.add('bg-blue-50', 'border-primary')
+          })
+          dropZone.addEventListener('dragleave', (e) => {
+            e.preventDefault()
+            dropZone.classList.remove('bg-blue-50', 'border-primary')
+          })
+          dropZone.addEventListener('drop', (e) => {
+            e.preventDefault()
+            dropZone.classList.remove('bg-blue-50', 'border-primary')
+            if (e.dataTransfer.files.length) {
+              fileInput.files = e.dataTransfer.files
+              updateFileDisplay()
+            }
+          })
+          fileInput.addEventListener('change', updateFileDisplay)
+
+          function updateFileDisplay() {
+            if (fileInput.files.length > 0) {
+              const file = fileInput.files[0]
+              if (file.size > 10 * 1024 * 1024) {
+                Swal.fire({
+                  icon: 'warning',
+                  title: 'Archivo demasiado grande',
+                  text: 'El archivo no debe superar los 10 MB.',
+                })
+                fileInput.value = ''
+                fileNameDisplay.textContent = 'PDF o Imagen hasta 10MB'
+                fileNameDisplay.classList.remove('text-primary', 'font-bold')
+                return
+              }
+              fileNameDisplay.textContent = `Archivo seleccionado: ${file.name} (${(file.size / 1024 / 1024).toFixed(2)} MB)`
+              fileNameDisplay.classList.add('text-primary', 'font-bold')
+            } else {
+              fileNameDisplay.textContent = 'PDF o Imagen hasta 10MB'
+              fileNameDisplay.classList.remove('text-primary', 'font-bold')
+            }
+          }
+        }
+
+        loadDraftOnStart()
+        updateUI()
+      </script>
+    </main>
+  </body>
+</html>
+A
